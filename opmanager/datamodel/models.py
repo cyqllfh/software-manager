@@ -11,14 +11,23 @@ class Software(models.Model):
     stop_cmd = models.CharField(max_length=100)
     status_cmd = models.CharField(max_length=100)
     remark = models.CharField(max_length=100)
+    
+    def __unicode__(self):
+        return self.name
 
 class Machine(models.Model):
     ip = models.GenericIPAddressField()
     alias = models.CharField(max_length=1000)
     remark = models.CharField(max_length=100)
+    
+    def __unicode__(self):
+        return self.ip
    
 class ConfigModel(models.Model):
     software = models.ForeignKey(Software)
-    tar_path = models.CharField(max_length=200)
+    tar_pkg = models.FileField(upload_to="files")
     def_parm = models.TextField()
+    
+#    def __unicode__(self):
+ #       return self.tar_pkg
     

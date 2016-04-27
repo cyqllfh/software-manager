@@ -1,5 +1,5 @@
 from django.contrib import admin
-from datamodel.models import Software,Machine
+from datamodel.models import Software,Machine,ConfigModel
 
 # Register your models here.
 class SoftwareAdmin(admin.ModelAdmin):
@@ -10,5 +10,9 @@ class SoftwareAdmin(admin.ModelAdmin):
 class MachineAdmin(admin.ModelAdmin):
     list_display = ('ip', 'alias','remark')
 
+class ConfigModelAdmin(admin.ModelAdmin):
+    list_display = ('id','tar_pkg',)
+
 admin.site.register(Software, SoftwareAdmin)
 admin.site.register(Machine, MachineAdmin)
+admin.site.register(ConfigModel, ConfigModelAdmin)
