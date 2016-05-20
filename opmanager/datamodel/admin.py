@@ -1,5 +1,5 @@
 from django.contrib import admin
-from datamodel.models import Software,Machine,ConfigModel,Script
+from datamodel.models import Software,Machine,ConfigModel,Script,Application
 
 # Register your models here.
 class SoftwareAdmin(admin.ModelAdmin):
@@ -17,8 +17,12 @@ class ScriptAdmin(admin.ModelAdmin):
     list_display = ('id','script_file', 'remark')
     filter_horizontal = ('machines',)
 
+class ApplicationAdmin(admin.ModelAdmin):
+    list_display = ('name', 'machine', 'software', 'config_model','script')
+
 admin.site.register(Software, SoftwareAdmin)
 admin.site.register(Machine, MachineAdmin)
 #admin.site.register(ConfigModel, ConfigModelAdmin)
 admin.site.register(ConfigModel)
 admin.site.register(Script, ScriptAdmin)
+admin.site.register(Application, ApplicationAdmin)

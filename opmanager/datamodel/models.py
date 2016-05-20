@@ -34,7 +34,30 @@ class ConfigModel(models.Model):
 class Script(models.Model):
     script_file = models.FileField(upload_to="scripts")
     machines = models.ManyToManyField(Machine, blank=True)
-    remark = models.TextField(blank=True)    
+    remark = models.TextField(blank=True)
+    is_run = models.BooleanField(default=False)
 
     def __unicode__(self):
         return self.script_file.name
+
+class Application(models.Model):
+    name = models.CharField(max_length=100)
+    machine = models.ForeignKey(Machine)
+    software = models.ForeignKey(Software)
+    config_model = models.ForeignKey(ConfigModel)
+    config_parm = models.TextField(blank=True)
+    script = models.ForeignKey(Script)
+    is_active = models.BooleanField(default=False)
+    is_config = models.BooleanField(default=False)
+
+    def __unicode__(self):
+        return self.name
+
+class History(models.Model):
+    cmd = models.CharField(max_length=200)
+    machine = models.ForeignKey(Machine)
+    datetime = models.DateTimeField(auto_now=True)
+    log = models.TextField(blank=True)
+
+    def __unicode__(self):
+        return self.cmd

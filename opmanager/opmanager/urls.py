@@ -17,8 +17,17 @@ from django.conf.urls import url
 from django.contrib import admin
 from django.conf import settings
 from django.views.static import serve
+from opmanager.views import home
+from datamodel.views import app,history,script
 
 urlpatterns = [
+    url(r'^$', home),
     url(r'^admin/', admin.site.urls),
     url(r'^file/(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT}),
+    url(r'^app/list/',app.ListApp, name='applist'),
+    url(r'^app/install/(?P<ID>\d+)/$', app.InstallApp, name='installurl'),
+    url(r'^app/config/(?P<ID>\d+)/$', app.Config, name='configurl'),
+    url(r'^history/list/', history.ListHistory, name='historylist'),
+    url(r'^script/list/', script.ListScript, name='scriptlist'),
+    url(r'^script/run/(?P<ID>\d+)/$', script.RunScript, name='runurl'),
 ]
